@@ -2,12 +2,12 @@
 # Generates random Alternate Data Streams (ADS) on files for threat hunting practice
 
 # Safety check: Ensure script runs in a lab environment
-$computerName = $env:COMPUTERNAME
+<#$computerName = $env:COMPUTERNAME
 if ($computerName -notlike "*LAB*") {
     Write-Warning "This script should only run in a lab environment (e.g., computer name with 'LAB'). Exiting."
     exit
 }
-
+#>
 # Define target directory and number of ADS to create
 $targetDir = "C:\LabFiles"
 $numADS = 5
