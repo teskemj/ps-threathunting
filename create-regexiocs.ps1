@@ -49,7 +49,7 @@ for ($i = 0; $i -lt $numFiles; $i++) {
 }
 
 # Verify created files
-Write-Output "`nFiles created in $targetDir:"
+Write-Output "`nFiles created in $targetDir"
 Get-ChildItem -Path $targetDir -Filter "SuspiciousLog_*.txt" | ForEach-Object {
     Write-Output " - $($_.FullName)"
 }
