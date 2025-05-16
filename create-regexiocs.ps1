@@ -3,11 +3,11 @@
 
 # Safety check: Ensure script runs in a lab environment
 $computerName = $env:COMPUTERNAME
-if ($computerName -notlike "*LAB*") {
+<# if ($computerName -notlike "*LAB*") {
     Write-Warning "This script should only run in a lab environment (e.g., computer name with 'LAB'). Exiting."
     exit
 }
-
+#>
 # Define target directory and number of files to create
 $targetDir = "C:\LabFiles"
 $numFiles = 5
