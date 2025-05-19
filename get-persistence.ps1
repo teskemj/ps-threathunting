@@ -28,5 +28,5 @@ $regPaths = @(
 )
 
 foreach ($path in $regPaths) {
-    Get-ItemProperty -Path $path -ErrorAction SilentlyContinue | Select-Object PSPath, *
+    Get-ItemProperty -Path $path -ErrorAction SilentlyContinue | Select-Object *
 }
