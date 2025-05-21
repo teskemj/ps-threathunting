@@ -5,7 +5,7 @@
 # Safety check: Ensure script runs in a lab environment
 # Lesson: Always verify your environment to avoid running scripts in production!
 $computerName = $env:COMPUTERNAME
-if ($computerName -notlike "*LAB*") {
+if ($computerName -notlike "*DC*") {
     Write-Warning "This script should only run in a lab environment (computer name with 'LAB'). Exiting."
     exit
 }
