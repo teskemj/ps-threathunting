@@ -1,0 +1,1814 @@
+
+Task Name: CreateExplorerShellUnelevatedTask
+Task Path: \
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : /NOUACCHECK
+Execute          : C:\Windows\Explorer.EXE
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: FakeMalwareTask
+Task Path: \
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : -NoProfile -WindowStyle Hidden -Command "Write-Output 'TEST: Fake scheduled task - 05/15/2025 08:41:25'"
+Execute          : powershell.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: MicrosoftEdgeUpdateTaskMachineCore
+Task Path: \
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : /c
+Execute          : C:\Program Files (x86)\Microsoft\EdgeUpdate\MicrosoftEdgeUpdate.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: MicrosoftEdgeUpdateTaskMachineUA
+Task Path: \
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : /ua /installsource scheduler
+Execute          : C:\Program Files (x86)\Microsoft\EdgeUpdate\MicrosoftEdgeUpdate.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: User_Feed_Synchronization-{7E643E27-A721-4AA1-937E-9BCFB628CDE8}
+Task Path: \
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : sync
+Execute          : C:\Windows\system32\msfeedssync.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: User_Feed_Synchronization-{FD82948C-9FC5-4266-8E38-EE03C7ED5A5A}
+Task Path: \
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : sync
+Execute          : C:\Windows\system32\msfeedssync.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Server Initial Configuration Task
+Task Path: \Microsoft\Windows\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : /disableconfigtask
+Execute          : %windir%\system32\srvinitconfig.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: .NET Framework NGEN v4.0.30319
+Task Path: \Microsoft\Windows\.NET Framework\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {84F0FAE1-C27B-4F6F-807B-28CF6F96287D}
+Data           : /RuntimeWide
+PSComputerName : 
+
+
+
+Task Name: .NET Framework NGEN v4.0.30319 64
+Task Path: \Microsoft\Windows\.NET Framework\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {429BC048-379E-45E0-80E4-EB1977941B5C}
+Data           : /RuntimeWide
+PSComputerName : 
+
+
+
+Task Name: .NET Framework NGEN v4.0.30319 64 Critical
+Task Path: \Microsoft\Windows\.NET Framework\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {613FBA38-A3DF-4AB8-9674-5604984A299A}
+Data           : /RuntimeWide
+PSComputerName : 
+
+
+
+Task Name: .NET Framework NGEN v4.0.30319 Critical
+Task Path: \Microsoft\Windows\.NET Framework\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {DE434264-8FE9-4C0B-A83B-89EBEEBFF78E}
+Data           : /RuntimeWide
+PSComputerName : 
+
+
+
+Task Name: AD RMS Rights Policy Template Management (Automated)
+Task Path: \Microsoft\Windows\Active Directory Rights Management Services Client\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {CF2CF428-325B-48D3-8CA8-7633E36E5A32}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: AD RMS Rights Policy Template Management (Manual)
+Task Path: \Microsoft\Windows\Active Directory Rights Management Services Client\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {BF5CB148-7C77-4D8A-A53E-D81C70CF743C}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: EDP Policy Manager
+Task Path: \Microsoft\Windows\AppID\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {DECA92E0-AF85-439E-9204-86679978DA08}
+Data           : EdpPolicyManager
+PSComputerName : 
+
+
+
+Task Name: PolicyConverter
+Task Path: \Microsoft\Windows\AppID\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : %windir%\system32\appidpolicyconverter.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: VerifiedPublisherCertStoreCheck
+Task Path: \Microsoft\Windows\AppID\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : %windir%\system32\appidcertstorecheck.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Microsoft Compatibility Appraiser
+Task Path: \Microsoft\Windows\Application Experience\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : %windir%\system32\compattelrunner.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: ProgramDataUpdater
+Task Path: \Microsoft\Windows\Application Experience\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : -maintenance
+Execute          : %windir%\system32\compattelrunner.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: StartupAppTask
+Task Path: \Microsoft\Windows\Application Experience\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : Startupscan.dll,SusRunTask
+Execute          : %windir%\system32\rundll32.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: appuriverifierdaily
+Task Path: \Microsoft\Windows\ApplicationData\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : %windir%\system32\AppHostRegistrationVerifier.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: appuriverifierinstall
+Task Path: \Microsoft\Windows\ApplicationData\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : %windir%\system32\AppHostRegistrationVerifier.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: CleanupTemporaryState
+Task Path: \Microsoft\Windows\ApplicationData\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : Windows.Storage.ApplicationData.dll,CleanupTemporaryState
+Execute          : %windir%\system32\rundll32.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: DsSvcCleanup
+Task Path: \Microsoft\Windows\ApplicationData\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : %windir%\system32\dstokenclean.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Pre-staged app cleanup
+Task Path: \Microsoft\Windows\AppxDeploymentClient\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : %windir%\system32\AppxDeploymentClient.dll,AppxPreStageCleanupRunTask
+Execute          : %windir%\system32\rundll32.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Proxy
+Task Path: \Microsoft\Windows\Autochk\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : /d acproxy.dll,PerformAutochkOperations
+Execute          : %windir%\system32\rundll32.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: BitLocker Encrypt All Drives
+Task Path: \Microsoft\Windows\BitLocker\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {61BCD1B9-340C-40EC-9D41-D7F1C0632F05}
+Data           : BitLockerEncryptAllDrives
+PSComputerName : 
+
+
+
+Task Name: BitLocker MDM policy Refresh
+Task Path: \Microsoft\Windows\BitLocker\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {61BCD1B9-340C-40EC-9D41-D7F1C0632F05}
+Data           : BitLockerPolicy
+PSComputerName : 
+
+
+
+Task Name: UninstallDeviceTask
+Task Path: \Microsoft\Windows\Bluetooth\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : $(Arg0)
+Execute          : BthUdTask.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: BgTaskRegistrationMaintenanceTask
+Task Path: \Microsoft\Windows\BrokerInfrastructure\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {E984D939-0E00-4DD9-AC3A-7ACA04745521}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: AikCertEnrollTask
+Task Path: \Microsoft\Windows\CertificateServicesClient\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {47E30D54-DAC1-473A-AFF7-2355BF78881F}
+Data           : AIKCertEnroll
+PSComputerName : 
+
+
+
+Task Name: CryptoPolicyTask
+Task Path: \Microsoft\Windows\CertificateServicesClient\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {47E30D54-DAC1-473A-AFF7-2355BF78881F}
+Data           : CryptoPolicy
+PSComputerName : 
+
+
+
+Task Name: KeyPreGenTask
+Task Path: \Microsoft\Windows\CertificateServicesClient\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {47E30D54-DAC1-473A-AFF7-2355BF78881F}
+Data           : NGCKeyPregen
+PSComputerName : 
+
+
+
+Task Name: SystemTask
+Task Path: \Microsoft\Windows\CertificateServicesClient\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {58FB76B9-AC85-4E55-AC04-427593B1D060}
+Data           : SYSTEM
+PSComputerName : 
+
+
+
+Task Name: UserTask
+Task Path: \Microsoft\Windows\CertificateServicesClient\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {58FB76B9-AC85-4E55-AC04-427593B1D060}
+Data           : USER
+PSComputerName : 
+
+
+
+Task Name: UserTask-Roam
+Task Path: \Microsoft\Windows\CertificateServicesClient\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {58FB76B9-AC85-4E55-AC04-427593B1D060}
+Data           : KEYROAMING
+PSComputerName : 
+
+
+
+Task Name: ProactiveScan
+Task Path: \Microsoft\Windows\Chkdsk\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {CF4270F5-2E43-4468-83B3-A8C45BB33EA1}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: SyspartRepair
+Task Path: \Microsoft\Windows\Chkdsk\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : %windir% /sysrepair
+Execute          : %windir%\system32\bcdboot.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: License Validation
+Task Path: \Microsoft\Windows\Clip\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : -p -s -o
+Execute          : %SystemRoot%\system32\ClipUp.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: CreateObjectTask
+Task Path: \Microsoft\Windows\CloudExperienceHost\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {E4544ABA-62BF-4C54-AAB2-EC246342626C}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: Consolidator
+Task Path: \Microsoft\Windows\Customer Experience Improvement Program\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : %SystemRoot%\System32\wsqmcons.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: UsbCeip
+Task Path: \Microsoft\Windows\Customer Experience Improvement Program\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {C27F6B1D-FE0B-45E4-9257-38799FA69BC8}
+Data           : SYSTEM
+PSComputerName : 
+
+
+
+Task Name: Data Integrity Scan
+Task Path: \Microsoft\Windows\Data Integrity Scan\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {DCFD3EA8-D960-4719-8206-490AE315F94F}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: Data Integrity Scan for Crash Recovery
+Task Path: \Microsoft\Windows\Data Integrity Scan\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {DCFD3EA8-D960-4719-8206-490AE315F94F}
+Data           : -CrashRecovery
+PSComputerName : 
+
+
+
+Task Name: ScheduledDefrag
+Task Path: \Microsoft\Windows\Defrag\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : -c -h -k -g -$
+Execute          : %windir%\system32\defrag.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Device
+Task Path: \Microsoft\Windows\Device Information\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : %windir%\system32\devicecensus.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Metadata Refresh
+Task Path: \Microsoft\Windows\Device Setup\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {23C1F3CF-C110-4512-ACA9-7B6174ECE888}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: Scheduled
+Task Path: \Microsoft\Windows\Diagnosis\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {C1F85EF8-BCC2-4606-BB39-70C523715EB3}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: DXGIAdapterCache
+Task Path: \Microsoft\Windows\DirectX\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : %windir%\system32\dxgiadaptercache.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: SilentCleanup
+Task Path: \Microsoft\Windows\DiskCleanup\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : /autoclean /d %systemdrive%
+Execute          : %windir%\system32\cleanmgr.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Microsoft-Windows-DiskDiagnosticDataCollector
+Task Path: \Microsoft\Windows\DiskDiagnostic\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : dfdts.dll,DfdGetDefaultPolicyAndSMART
+Execute          : %windir%\system32\rundll32.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Microsoft-Windows-DiskDiagnosticResolver
+Task Path: \Microsoft\Windows\DiskDiagnostic\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : %windir%\system32\DFDWiz.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Diagnostics
+Task Path: \Microsoft\Windows\DiskFootprint\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : -z
+Execute          : %windir%\system32\disksnapshot.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: StorageSense
+Task Path: \Microsoft\Windows\DiskFootprint\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {AB2A519B-03B0-43CE-940A-A73DF850B49A}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: EDP App Launch Task
+Task Path: \Microsoft\Windows\EDP\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {61BCD1B9-340C-40EC-9D41-D7F1C0632F05}
+Data           : AppLaunch
+PSComputerName : 
+
+
+
+Task Name: EDP Auth Task
+Task Path: \Microsoft\Windows\EDP\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {61BCD1B9-340C-40EC-9D41-D7F1C0632F05}
+Data           : ReAuth
+PSComputerName : 
+
+
+
+Task Name: EDP Inaccessible Credentials Task
+Task Path: \Microsoft\Windows\EDP\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {61BCD1B9-340C-40EC-9D41-D7F1C0632F05}
+Data           : MissingCredentials
+PSComputerName : 
+
+
+
+Task Name: StorageCardEncryption Task
+Task Path: \Microsoft\Windows\EDP\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {61BCD1B9-340C-40EC-9D41-D7F1C0632F05}
+Data           : SDCardEncryptionPolicy
+PSComputerName : 
+
+
+
+Task Name: ExploitGuard MDM policy Refresh
+Task Path: \Microsoft\Windows\ExploitGuard\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {711001CD-CC1D-4470-9B7E-1EF73849C79E}
+Data           : ExploitGuardPolicy
+PSComputerName : 
+
+
+
+Task Name: Property Definition Sync
+Task Path: \Microsoft\Windows\File Classification Infrastructure\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {2AE64751-B728-4D6B-97A0-B2DA2E7D2A3B}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: ReconcileFeatures
+Task Path: \Microsoft\Windows\Flighting\FeatureConfig\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {59EECBFE-C2F5-4419-9B99-13FE05FF2675}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: RefreshCache
+Task Path: \Microsoft\Windows\Flighting\OneSettings\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {E07647F7-AED2-48D9-9720-939BC24A8A3C}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: ScanForUpdates
+Task Path: \Microsoft\Windows\InstallService\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {A558C6A5-B42B-4C98-B610-BF9559143139}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: ScanForUpdatesAsUser
+Task Path: \Microsoft\Windows\InstallService\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {DDAFAEA2-8842-4E96-BADE-D44A8D676FDB}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: SmartRetry
+Task Path: \Microsoft\Windows\InstallService\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {F3A219C3-2698-4CBF-9C07-037EDB8E72E6}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: WakeUpAndContinueUpdates
+Task Path: \Microsoft\Windows\InstallService\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {0DC331EE-8438-49D5-A721-E10B937CE459}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: WakeUpAndScanForUpdates
+Task Path: \Microsoft\Windows\InstallService\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {D5A04D91-6FE6-4FE4-A98A-FEB4500C5AF7}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: Installation
+Task Path: \Microsoft\Windows\LanguageComponentsInstaller\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {6F58F65F-EC0E-4ACA-99FE-FC5A1A25E4BE}
+Data           : Install $(Arg0)
+PSComputerName : 
+
+
+
+Task Name: Uninstallation
+Task Path: \Microsoft\Windows\LanguageComponentsInstaller\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {6F58F65F-EC0E-4ACA-99FE-FC5A1A25E4BE}
+Data           : Uninstall
+PSComputerName : 
+
+
+
+Task Name: TempSignedLicenseExchange
+Task Path: \Microsoft\Windows\License Manager\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {77646A68-AD14-4D53-897D-7BE4DDE5F929}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: Notifications
+Task Path: \Microsoft\Windows\Location\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : %windir%\System32\LocationNotificationWindows.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: WindowsActionDialog
+Task Path: \Microsoft\Windows\Location\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : %windir%\System32\WindowsActionDialog.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: WinSAT
+Task Path: \Microsoft\Windows\Maintenance\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {A9A33436-678B-4C9C-A211-7CC38785E79D}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: MapsToastTask
+Task Path: \Microsoft\Windows\Maps\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {9885AEF2-BD9F-41E0-B15E-B3141395E803}
+Data           : $(Arg0);$(Arg1);$(Arg2);$(Arg3);$(Arg4);$(Arg5);$(Arg6);$(Arg7)
+PSComputerName : 
+
+
+
+Task Name: MapsUpdateTask
+Task Path: \Microsoft\Windows\Maps\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {B9033E87-33CF-4D77-BC9B-895AFBBA72E4}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: ProcessMemoryDiagnosticEvents
+Task Path: \Microsoft\Windows\MemoryDiagnostic\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {8168E74A-B39F-46D8-ADCD-7BED477B80A3}
+Data           : Event
+PSComputerName : 
+
+
+
+Task Name: RunFullMemoryDiagnostic
+Task Path: \Microsoft\Windows\MemoryDiagnostic\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {8168E74A-B39F-46D8-ADCD-7BED477B80A3}
+Data           : Time
+PSComputerName : 
+
+
+
+Task Name: MNO Metadata Parser
+Task Path: \Microsoft\Windows\Mobile Broadband Accounts\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : %SystemRoot%\System32\MbaeParserTask.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: LPRemove
+Task Path: \Microsoft\Windows\MUI\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : %windir%\system32\lpremove.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: SystemSoundsService
+Task Path: \Microsoft\Windows\Multimedia\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {2DEA658F-54C1-4227-AF9B-260AB5FC3543}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: GatherNetworkInfo
+Task Path: \Microsoft\Windows\NetTrace\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : %windir%\system32\gatherNetworkInfo.vbs
+WorkingDirectory : $(Arg1)
+PSComputerName   : 
+
+
+
+Task Name: SDN Diagnostics Task
+Task Path: \Microsoft\Windows\Network Controller\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : %windir%\System32\SDNDiagnosticsTask.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Background Synchronization
+Task Path: \Microsoft\Windows\Offline Files\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {FA3F3DD9-4C1A-456B-A8FA-C76EF3ED83B8}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: Logon Synchronization
+Task Path: \Microsoft\Windows\Offline Files\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {FA3F3DD9-4C1A-456B-A8FA-C76EF3ED83B8}
+Data           : Logon
+PSComputerName : 
+
+
+
+Task Name: Secure-Boot-Update
+Task Path: \Microsoft\Windows\PI\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {5014B7C8-934E-4262-9816-887FA745A6C4}
+Data           : SBServicing
+PSComputerName : 
+
+
+
+Task Name: SecureBootEncodeUEFI
+Task Path: \Microsoft\Windows\PI\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : %WINDIR%\system32\SecureBootEncodeUEFI.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Sqm-Tasks
+Task Path: \Microsoft\Windows\PI\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {5014B7C8-934E-4262-9816-887FA745A6C4}
+Data           : PiSqmTasks
+PSComputerName : 
+
+
+
+Task Name: Server Manager Performance Monitor
+Task Path: \Microsoft\Windows\PLA\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : %systemroot%\system32\pla.dll,PlaHost "Server Manager Performance Monitor" "$(Arg0)"
+Execute          : %systemroot%\system32\rundll32.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Device Install Group Policy
+Task Path: \Microsoft\Windows\Plug and Play\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {60400283-B242-4FA8-8C25-CAF695B88209}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: Device Install Reboot Required
+Task Path: \Microsoft\Windows\Plug and Play\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {48794782-6A1F-47B9-BD52-1D5F95D49C1B}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: Sysprep Generalize Drivers
+Task Path: \Microsoft\Windows\Plug and Play\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 6
+Execute          : %SystemRoot%\System32\drvinst.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: AnalyzeSystem
+Task Path: \Microsoft\Windows\Power Efficiency Diagnostics\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {927EA2AF-1C54-43D5-825E-0074CE028EEE}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: LoginCheck
+Task Path: \Microsoft\Windows\PushToInstall\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : start pushtoinstall login
+Execute          : %windir%\system32\sc.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Registration
+Task Path: \Microsoft\Windows\PushToInstall\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : start pushtoinstall registration
+Execute          : %windir%\system32\sc.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: MobilityManager
+Task Path: \Microsoft\Windows\Ras\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {C463A0FC-794F-4FDF-9201-01938CEACAFA}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: VerifyWinRE
+Task Path: \Microsoft\Windows\RecoveryEnvironment\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {89D1D0C2-A3CF-490C-ABE3-B86CDE34B047}
+Data           : VerifyWinRE
+PSComputerName : 
+
+
+
+Task Name: RegIdleBackup
+Task Path: \Microsoft\Windows\Registry\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {CA767AA8-9157-4604-B64B-40747123D5F2}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: CleanupOldPerfLogs
+Task Path: \Microsoft\Windows\Server Manager\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : /B /nologo %systemroot%\system32\calluxxprovider.vbs $(Arg0) $(Arg1) $(Arg2)
+Execute          : %systemroot%\system32\cscript.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: ServerManager
+Task Path: \Microsoft\Windows\Server Manager\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : %windir%\system32\ServerManagerLauncher.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: StartComponentCleanup
+Task Path: \Microsoft\Windows\Servicing\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {752073A1-23F2-4396-85F0-8FDB879ED0ED}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: Account Cleanup
+Task Path: \Microsoft\Windows\SharedPC\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : %windir%\System32\Windows.SharedPC.AccountManager.dll,StartMaintenance
+Execute          : %windir%\System32\rundll32.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: CreateObjectTask
+Task Path: \Microsoft\Windows\Shell\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {990A9F8F-301F-45F7-8D0E-68C5952DBA43}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: IndexerAutomaticMaintenance
+Task Path: \Microsoft\Windows\Shell\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {3FBA60A6-7BF5-4868-A2CA-6623B3DFFEA6}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: Collection
+Task Path: \Microsoft\Windows\Software Inventory Logging\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : /d /c %systemroot%\system32\silcollector.cmd publish
+Execute          : %systemroot%\system32\cmd.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Configuration
+Task Path: \Microsoft\Windows\Software Inventory Logging\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : /d /c %systemroot%\system32\silcollector.cmd configure
+Execute          : %systemroot%\system32\cmd.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: SvcRestartTask
+Task Path: \Microsoft\Windows\SoftwareProtectionPlatform\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {B1AEBB5D-EAD9-4476-B375-9C3ED9F32AFC}
+Data           : timer
+PSComputerName : 
+
+
+
+Task Name: SvcRestartTaskLogon
+Task Path: \Microsoft\Windows\SoftwareProtectionPlatform\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {B1AEBB5D-EAD9-4476-B375-9C3ED9F32AFC}
+Data           : logon
+PSComputerName : 
+
+
+
+Task Name: SvcRestartTaskNetwork
+Task Path: \Microsoft\Windows\SoftwareProtectionPlatform\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {B1AEBB5D-EAD9-4476-B375-9C3ED9F32AFC}
+Data           : network
+PSComputerName : 
+
+
+
+Task Name: SpaceAgentTask
+Task Path: \Microsoft\Windows\SpacePort\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : %windir%\system32\SpaceAgent.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: SpaceManagerTask
+Task Path: \Microsoft\Windows\SpacePort\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : /Work
+Execute          : %windir%\system32\spaceman.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: HeadsetButtonPress
+Task Path: \Microsoft\Windows\Speech\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : StartedFromTask
+Execute          : %windir%\system32\speech_onecore\common\SpeechRuntime.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: SpeechModelDownloadTask
+Task Path: \Microsoft\Windows\Speech\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : %windir%\system32\speech_onecore\common\SpeechModelDownload.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Storage Tiers Management Initialization
+Task Path: \Microsoft\Windows\Storage Tiers Management\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {5C9AB547-345D-4175-9AF6-65133463A100}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: Storage Tiers Optimization
+Task Path: \Microsoft\Windows\Storage Tiers Management\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : -c -h -g -# -m 8 -i 13500
+Execute          : %windir%\system32\defrag.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Interactive
+Task Path: \Microsoft\Windows\Task Manager\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {855FEC53-D2E4-4999-9E87-3414E9CF0FF4}
+Data           : $(Arg0)
+PSComputerName : 
+
+
+
+Task Name: MsCtfMonitor
+Task Path: \Microsoft\Windows\TextServicesFramework\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {01575CFE-9A55-4003-A5E1-F38D1EBDCBE1}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: ForceSynchronizeTime
+Task Path: \Microsoft\Windows\Time Synchronization\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {A31AD6C2-FF4C-43D4-8E90-7101023096F9}
+Data           : TimeSyncTask
+PSComputerName : 
+
+
+
+Task Name: SynchronizeTime
+Task Path: \Microsoft\Windows\Time Synchronization\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : start w32time task_started
+Execute          : %windir%\system32\sc.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: SynchronizeTimeZone
+Task Path: \Microsoft\Windows\Time Zone\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : %windir%\system32\tzsync.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Tpm-HASCertRetr
+Task Path: \Microsoft\Windows\TPM\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {5014B7C8-934E-4262-9816-887FA745A6C4}
+Data           : HASCertRetr
+PSComputerName : 
+
+
+
+Task Name: Tpm-Maintenance
+Task Path: \Microsoft\Windows\TPM\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {5014B7C8-934E-4262-9816-887FA745A6C4}
+Data           : TpmTasks
+PSComputerName : 
+
+
+
+Task Name: AC Power Download
+Task Path: \Microsoft\Windows\UpdateOrchestrator\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : StartDownload
+Execute          : %systemroot%\system32\usoclient.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Backup Scan
+Task Path: \Microsoft\Windows\UpdateOrchestrator\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : StartScan
+Execute          : %systemroot%\system32\usoclient.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Maintenance Install
+Task Path: \Microsoft\Windows\UpdateOrchestrator\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : StartInstall
+Execute          : %systemroot%\system32\usoclient.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: MusUx_UpdateInterval
+Task Path: \Microsoft\Windows\UpdateOrchestrator\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : Display
+Execute          : %systemroot%\system32\MusNotification.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Reboot
+Task Path: \Microsoft\Windows\UpdateOrchestrator\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : RebootDialog
+Execute          : %systemroot%\system32\MusNotification.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Schedule Scan
+Task Path: \Microsoft\Windows\UpdateOrchestrator\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : StartScan
+Execute          : %systemroot%\system32\usoclient.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Schedule Scan Static Task
+Task Path: \Microsoft\Windows\UpdateOrchestrator\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : StartScan
+Execute          : %systemroot%\system32\usoclient.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: USO_UxBroker
+Task Path: \Microsoft\Windows\UpdateOrchestrator\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : %systemroot%\system32\MusNotification.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: UPnPHostConfig
+Task Path: \Microsoft\Windows\UPnP\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : config upnphost start= auto
+Execute          : sc.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: HiveUploadTask
+Task Path: \Microsoft\Windows\User Profile Service\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {BA677074-762C-444B-94C8-8C83F93F6605}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: PerformRemediation
+Task Path: \Microsoft\Windows\WaaSMedic\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {72566E27-1ABB-4EB3-B4F0-EB431CB1CB32}
+Data           : None
+PSComputerName : 
+
+
+
+Task Name: ResolutionHost
+Task Path: \Microsoft\Windows\WDI\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {900BE39D-6BE8-461A-BC4D-B0FA71F5ECB1}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: Windows Defender Cache Maintenance
+Task Path: \Microsoft\Windows\Windows Defender\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : -IdleTask -TaskName WdCacheMaintenance
+Execute          : C:\ProgramData\Microsoft\Windows Defender\Platform\4.18.25040.2-0\MpCmdRun.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Windows Defender Cleanup
+Task Path: \Microsoft\Windows\Windows Defender\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : -IdleTask -TaskName WdCleanup
+Execute          : C:\ProgramData\Microsoft\Windows Defender\Platform\4.18.25040.2-0\MpCmdRun.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Windows Defender Scheduled Scan
+Task Path: \Microsoft\Windows\Windows Defender\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : Scan -ScheduleJob -ScanTrigger 55 -IdleScheduledJob
+Execute          : C:\ProgramData\Microsoft\Windows Defender\Platform\4.18.25040.2-0\MpCmdRun.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Windows Defender Verification
+Task Path: \Microsoft\Windows\Windows Defender\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : -IdleTask -TaskName WdVerification
+Execute          : C:\ProgramData\Microsoft\Windows Defender\Platform\4.18.25040.2-0\MpCmdRun.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: QueueReporting
+Task Path: \Microsoft\Windows\Windows Error Reporting\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : -upload
+Execute          : %windir%\system32\wermgr.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: BfeOnServiceStartTypeChange
+Task Path: \Microsoft\Windows\Windows Filtering Platform\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : bfe.dll,BfeOnServiceStartTypeChange
+Execute          : %windir%\system32\rundll32.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: UpdateLibrary
+Task Path: \Microsoft\Windows\Windows Media Sharing\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : "%ProgramFiles%\Windows Media Player\wmpnscfg.exe"
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Calibration Loader
+Task Path: \Microsoft\Windows\WindowsColorSystem\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {B210D694-C8DF-490D-9576-9E20CDBC20BD}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: Scheduled Start
+Task Path: \Microsoft\Windows\WindowsUpdate\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : start wuauserv
+Execute          : C:\Windows\system32\sc.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: CacheTask
+Task Path: \Microsoft\Windows\Wininet\
+Actions:
+ - Type: 
+   Details: 
+Id             : 
+ClassId        : {0358B920-0AC7-461F-98F4-58E32CD89148}
+Data           : 
+PSComputerName : 
+
+
+
+Task Name: Automatic-Device-Join
+Task Path: \Microsoft\Windows\Workplace Join\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : $(Arg0) $(Arg1) $(Arg2)
+Execute          : %SystemRoot%\System32\dsregcmd.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: Recovery-Check
+Task Path: \Microsoft\Windows\Workplace Join\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : /checkrecovery
+Execute          : %SystemRoot%\System32\dsregcmd.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Task Name: taskname
+Task Path: \task-folder\
+Actions:
+ - Type: 
+   Details: 
+Id               : 
+Arguments        : 
+Execute          : notepad.exe
+WorkingDirectory : 
+PSComputerName   : 
+
+
+
+Completed retrieval of scheduled task actions.

@@ -1,4 +1,4 @@
-$file = "C:\path\to\file"   #Replace with the path to the file you want to check
+$file = "C:\labfiles\DummyFile0.txt"   #Replace with the path to the file you want to check
 
 $streamList = Get-Item $file -Stream * | Select-Object Stream
 

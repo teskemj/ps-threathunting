@@ -19,6 +19,43 @@ Get-Process | Where-Object { $_.Path -eq $null -or -not (Test-Path $_.Path) } | 
 Get-Process -Name powershell, pwsh | Select-Object Id, ProcessName, CommandLine 
 Get-ScheduledTask | Where-Object { $_.State -eq "Ready" -or $_.State -eq "Running" } | Select-Object TaskName, TaskPath, Actions
 
+
+# Get scheduled tasks
+try {
+    if ($taskName) {
+        $tasks = Get-ScheduledTask -TaskName $taskName -ErrorAction Stop
+    } else {
+        $tasks = Get-ScheduledTask -ErrorAction Stop
+    }
+} catch {
+    Write-Warning "Failed to retrieve scheduled tasks: $_"
+    exit
+}
+# Display actions for each task
+foreach ($task in $tasks) {
+    Write-Output "`nTask Name: $($task.TaskName)"
+    Write-Output "Task Path: $($task.TaskPath)"
+    
+    # Get the actions associated with the task
+    $actions = $task.Actions
+    if ($actions) {
+        Write-Output "Actions:"
+        foreach ($action in $actions) {
+            # Check the type of action (most common is Execute)
+            if ($action.ActionType -eq "Execute") {
+                Write-Output " - Execute: $($action.Execute)"
+                Write-Output "   Arguments: $($action.Arguments)"
+                Write-Output "   Working Directory: $($action.WorkingDirectory)"
+            } else {
+                Write-Output " - Type: $($action.ActionType)"
+                Write-Output "   Details: $($action | Format-List | Out-String)"
+            }
+        }
+    } else {
+        Write-Output "No actions found for this task."
+    }
+
+
 # Check common Registry persistence keys
 $regPaths = @(
     "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run",
