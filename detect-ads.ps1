@@ -4,8 +4,7 @@
 .DESCRIPTION
     Scans specified directories for ADS in NTFS files, lists stream details, extracts readable content,
     calculates file hashes, and exports results to a CSV report. Useful for detecting hidden data or malware.
-.AUTHOR
-    Grok 3 (xAI)
+
 .DATE
     May 12, 2025
 .USAGE
