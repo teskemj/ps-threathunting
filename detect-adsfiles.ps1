@@ -1,4 +1,4 @@
-$folderPath = "C:\Users\UserName\Documents" #Replace with the path to the folder you want to search
+$folderPath = "C:\labfiles" #Replace with the path to the folder you want to search
 
 #Get all files in the specified folder and its subfolders
 $files = Get-ChildItem $folderPath -Recurse -File
