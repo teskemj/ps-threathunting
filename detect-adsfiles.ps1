@@ -9,13 +9,19 @@ foreach ($file in $files) {
 
     #If the file has alternate data streams, output the file path and stream names
     if ($streams) {
-        Write-Host "File: $($file.FullName)"
-        Write-Host "Alternate Data Streams:"
+        Write-Host "File: $($file.FullName)" -ForegroundColor Magenta
+        Write-Host "Alternate Data Streams:" -ForegroundColor Cyan
 
         foreach ($stream in $streams) {
-            Write-Host "  $($stream.StreamName)"
+            Write-Host "  $($stream.Stream)" -ForegroundColor Yellow
         }
 
+        
+        # Output the contents of the alternate data stream
+        Write-Host " "
+        Write-Host "Reading contents of the alternate data stream:" -ForegroundColor Green       
+        write-host "Contents of the alternate data stream:" -ForegroundColor Green  
+        get-content -path $file -Stream $stream.Stream 
         Write-Host " "
     }
 }
