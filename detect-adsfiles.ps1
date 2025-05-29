@@ -1,4 +1,5 @@
-$folderPath = "C:\labfiles" #Replace with the path to the folder you want to search
+#Replace with the path to the folder you want to search
+$folderPath = "C:\labfiles" 
 
 #Get all files in the specified folder and its subfolders
 $files = Get-ChildItem $folderPath -Recurse -File
@@ -19,9 +20,10 @@ foreach ($file in $files) {
         
         # Output the contents of the alternate data stream
         Write-Host " "
-        Write-Host "Reading contents of the alternate data stream:" -ForegroundColor Green       
+        Write-Host "Reading contents of the alternate data stream..." -ForegroundColor White           
         write-host "Contents of the alternate data stream:" -ForegroundColor Green  
-        get-content -path $file -Stream $stream.Stream 
+        $ads=get-content -path $file -Stream $stream.Stream 
+        write-host $ads -ForegroundColor Red
         Write-Host " "
     }
 }
