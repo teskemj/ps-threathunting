@@ -12,7 +12,7 @@ if ($computerName -notlike "*DC*") {
 
 # Set time range to last 24 hours
 # Lesson: Limiting the time range reduces noise and focuses on recent activity.
-$startTime = (Get-Date).AddHours(-24)
+$startTime = (Get-Date).AddDays(-24)
 
 # Initialize results array to store detected IOCs
 $results = @()
@@ -92,5 +92,3 @@ if ($results.Count -eq 0) {
     Write-Output "Next Steps: Check the event logs manually to confirm these events and investigate further."
 }
 
-Write-Output "`nThreat Hunting Tip: Use Event Viewer to explore the Security and System logs for these events."
-Write-Output "Learn more about event IDs at: https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/"
