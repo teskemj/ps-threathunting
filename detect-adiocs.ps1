@@ -1,90 +1,112 @@
-# Detect-adIOCs.ps1
-# Detects AD Recon, lateral movement, scheduled task, registry runkey, service abuse
+<#
+    Threat Detection Script – Paired with Teske's IOC Simulation
+    Target: DC1.becausesecurity.pri
+    Detects: AD Recon, Remoting, LOLBins, Persistence, Registry, GPO, Service Abuse
+    Author: Teske Lab
+#>
 
-# Output paths
-$ReportPath = "C:\Labfiles\ThreatHunterReport.csv"
+# Set up report path
+$ReportPath = "C:\LabSimulation\Detection_Report.csv"
 $Results = @()
+$Now = Get-Date
 
-Write-Host "`n[+] Running threat detection..."
+Write-Host "`n[+] Starting detection scan for lab IOCs..."
 
-# Detect AD Enumeration via LDAP Queries
-Write-Host "[*] Checking for excessive AD user/computer/group queries..."
-$ADQueryEvents = Get-WinEvent -LogName Security -MaxEvents 500 |
-    Where-Object {
-        $_.Id -eq 4662 -and $_.Message -match "Read Property"
-    }
-
-foreach ($event in $ADQueryEvents) {
+# --------------------------
+# 1. Detect AD Recon (4662)
+# --------------------------
+Write-Host "[*] Checking for AD enumeration events..."
+Get-WinEvent -LogName Security -MaxEvents 500 |
+Where-Object { $_.Id -eq 4662 -and $_.Message -match "Read Property" } |
+ForEach-Object {
     $Results += [PSCustomObject]@{
-        TimeCreated = $event.TimeCreated
-        Detection   = "Possible AD Enumeration (4662)"
-        Details     = $event.Message -replace "`r|`n", ' '
+        TimeCreated = $_.TimeCreated
+        Detection   = "AD Enumeration (4662)"
+        Details     = $_.Message -replace "`r|`n", ' '
     }
 }
 
-# Detect Lateral Movement via Invoke-Command / WinRM
-Write-Host "[*] Checking for suspicious remote WinRM activity..."
-$RemoteSessions = Get-WinEvent -LogName Security -MaxEvents 300 |
-    Where-Object {
-        $_.Id -eq 4624 -and $_.Message -match "Logon Type:\s+3" -and $_.Message -match "Source Network Address"
-    }
-
-foreach ($event in $RemoteSessions) {
+# --------------------------
+# 2. Detect PowerShell Remoting / Script Execution (4104)
+# --------------------------
+Write-Host "[*] Checking for PowerShell remoting/script blocks..."
+Get-WinEvent -LogName "Microsoft-Windows-PowerShell/Operational" -MaxEvents 300 |
+Where-Object { $_.Id -eq 4104 -and $_.Message -match "Invoke-Command|Enter-PSSession|New-PSSession" } |
+ForEach-Object {
     $Results += [PSCustomObject]@{
-        TimeCreated = $event.TimeCreated
-        Detection   = "Potential WinRM Lateral Movement (4624)"
-        Details     = $event.Message -replace "`r|`n", ' '
+        TimeCreated = $_.TimeCreated
+        Detection   = "PowerShell Remoting/ScriptBlock (4104)"
+        Details     = $_.Message -replace "`r|`n", ' '
     }
 }
 
-# Detect Scheduled Task Creation
-Write-Host "[*] Checking for suspicious scheduled tasks..."
-$TaskEvents = Get-WinEvent -LogName Security -MaxEvents 200 |
-    Where-Object { $_.Id -eq 4698 -or $_.Message -match "FakePersistenceTask" }
-
-foreach ($event in $TaskEvents) {
+# --------------------------
+# 3. Detect Scheduled Tasks (4698)
+# --------------------------
+Write-Host "[*] Checking for scheduled task creation..."
+Get-WinEvent -LogName Security -MaxEvents 300 |
+Where-Object { $_.Id -eq 4698 -or $_.Message -match "FakePersistenceTask" } |
+ForEach-Object {
     $Results += [PSCustomObject]@{
-        TimeCreated = $event.TimeCreated
-        Detection   = "Suspicious Scheduled Task (4698)"
-        Details     = $event.Message -replace "`r|`n", ' '
+        TimeCreated = $_.TimeCreated
+        Detection   = "Scheduled Task Persistence (4698)"
+        Details     = $_.Message -replace "`r|`n", ' '
     }
 }
 
-# Detect Registry Run Key Persistence
-Write-Host "[*] Checking registry Run keys for suspicious entries..."
-$RunKey = "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run"
-$RunValues = Get-ItemProperty -Path $RunKey
+# --------------------------
+# 4. Detect Registry Run Key Persistence
+# --------------------------
+Write-Host "[*] Checking registry for Run key backdoors..."
+$RunPath = "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run"
+$RunKeys = Get-ItemProperty -Path $RunPath
 
-foreach ($name in $RunValues.PSObject.Properties.Name) {
-    if ($RunValues.$name -match "cmd.exe|powershell|reg_persist") {
+foreach ($entry in $RunKeys.PSObject.Properties) {
+    if ($entry.Value -match "cmd.exe|regstart") {
         $Results += [PSCustomObject]@{
-            TimeCreated = Get-Date
-            Detection   = "Suspicious Registry Run Key Persistence"
-            Details     = "$name = $($RunValues.$name)"
+            TimeCreated = $Now
+            Detection   = "Registry Run Key Persistence"
+            Details     = "$($entry.Name) = $($entry.Value)"
         }
     }
 }
 
-
-# Detect Suspicious Service Creation
-Write-Host "[*] Checking for suspicious service installs..."
-$ServiceEvents = Get-WinEvent -LogName System -MaxEvents 200 |
-    Where-Object { $_.Id -eq 7045 -and $_.Message -match "TestService|cmd.exe" }
-
-foreach ($event in $ServiceEvents) {
+# --------------------------
+# 5. Detect Service Creation (7045)
+# --------------------------
+Write-Host "[*] Checking for fake service creation..."
+Get-WinEvent -LogName System -MaxEvents 200 |
+Where-Object { $_.Id -eq 7045 -and $_.Message -match "FakeService|cmd.exe" } |
+ForEach-Object {
     $Results += [PSCustomObject]@{
-        TimeCreated = $event.TimeCreated
+        TimeCreated = $_.TimeCreated
         Detection   = "Suspicious Service Creation (7045)"
-        Details     = $event.Message -replace "`r|`n", ' '
+        Details     = $_.Message -replace "`r|`n", ' '
     }
 }
 
+# --------------------------
+# 6. Detect LOLBin Execution (4688)
+# --------------------------
+Write-Host "[*] Scanning for LOLBin executions..."
+$lolbins = @("ntdsutil.exe", "esentutl.exe", "reg.exe", "sc.exe")
+Get-WinEvent -LogName Security -MaxEvents 500 |
+Where-Object { $_.Id -eq 4688 -and $lolbins | Where-Object { $_.ToLower() -in $_.Message.ToLower() } } |
+ForEach-Object {
+    $Results += [PSCustomObject]@{
+        TimeCreated = $_.TimeCreated
+        Detection   = "LOLBin Execution (4688)"
+        Details     = $_.Message -replace "`r|`n", ' '
+    }
+}
 
-# Output Results
+# --------------------------
+# 7. Output Results
+# --------------------------
 if ($Results.Count -gt 0) {
     $Results | Format-Table -AutoSize
     $Results | Export-Csv -Path $ReportPath -NoTypeInformation
-    Write-Host "`n[+] Threat indicators saved to $ReportPath"
+    Write-Host "`n[+] Detection complete. Report saved to: $ReportPath"
 } else {
-    Write-Host "`n[+] No threats or simulated IOCs detected."
+    Write-Host "`n[+] No matching threat activity detected."
 }
