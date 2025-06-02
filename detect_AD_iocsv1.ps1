@@ -77,6 +77,36 @@ ForEach-Object {
         Details     = $_.Message -replace "`r|`n", ' '
     }
 }
+# LOLBins Detection (4688)
+Write-Host "[*] Detecting LOLBins used by threat actors..."
+
+$lolbins = @(
+    "powershell.exe", "cmd.exe", "rundll32.exe", "regsvr32.exe",
+    "mshta.exe", "wscript.exe", "cscript.exe", "wmic.exe",
+    "forfiles.exe", "certutil.exe", "bitsadmin.exe",
+    "ntdsutil.exe", "esentutl.exe"
+)
+
+$events = Get-WinEvent -FilterHashtable @{
+    LogName = 'Security';
+    Id      = 4688
+} -MaxEvents 1000
+
+foreach ($event in $events) {
+    if ($event.Message) {
+        $msg = $event.Message.ToLower()
+        foreach ($bin in $lolbins) {
+            if ($msg -like "*$bin*") {
+                $Results += [PSCustomObject]@{
+                    TimeCreated = $event.TimeCreated
+                    Detection   = "LOLBin Execution (4688)"
+                    Details     = $msg -replace "`r|`n", ' '
+                }
+                break
+            }
+        }
+    }
+}
 
 # Export the results
 if ($Results.Count -gt 0) {
