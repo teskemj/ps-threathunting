@@ -1,21 +1,13 @@
-<#
-    Threat Detection Script – Paired with Teske's IOC Simulation
-    Target: DC1.becausesecurity.pri
-    Detects: AD Recon, Remoting, LOLBins, Persistence, Registry, GPO, Service Abuse
-    Author: Teske Lab
-#>
-
-# Set up report path
-$ReportPath = "C:\LabFiles\Detection_Report.csv"
+# Teske Lab Threat IOC Detection Script (Unified & Formatted)
+# Timestamp: 2025-06-02T16:12
+$ReportPath = "C:\LabFiles\Detection_Report_Full.csv"
 $Results = @()
 $Now = Get-Date
 
-Write-Host "`n[+] Starting detection scan for lab IOCs..."
+Write-Host "`n[+] Starting IOC detection..."
 
-# --------------------------
-# 1. Detect AD Recon (4662)
-# --------------------------
-Write-Host "[*] Checking for AD enumeration events..."
+# AD Recon via LDAP (4662)
+Write-Host "[*] Detecting AD enumeration..."
 Get-WinEvent -LogName Security -MaxEvents 500 |
 Where-Object { $_.Id -eq 4662 -and $_.Message -match "Read Property" } |
 ForEach-Object {
@@ -26,24 +18,34 @@ ForEach-Object {
     }
 }
 
-# --------------------------
-# 2. Detect PowerShell Remoting / Script Execution (4104)
-# --------------------------
-Write-Host "[*] Checking for PowerShell remoting/script blocks..."
+# PowerShell Remoting / ScriptBlock (4104)
+Write-Host "[*] Detecting PowerShell Remoting / Invoke-Command..."
 Get-WinEvent -LogName "Microsoft-Windows-PowerShell/Operational" -MaxEvents 300 |
 Where-Object { $_.Id -eq 4104 -and $_.Message -match "Invoke-Command|Enter-PSSession|New-PSSession" } |
 ForEach-Object {
     $Results += [PSCustomObject]@{
         TimeCreated = $_.TimeCreated
-        Detection   = "PowerShell Remoting/ScriptBlock (4104)"
+        Detection   = "PowerShell ScriptBlock (4104)"
         Details     = $_.Message -replace "`r|`n", ' '
     }
 }
 
-# --------------------------
-# 3. Detect Scheduled Tasks (4698)
-# --------------------------
-Write-Host "[*] Checking for scheduled task creation..."
+# Remote Logon Activity (4624 Type 3)
+Write-Host "[*] Detecting remote logons (Type 3)..."
+Get-WinEvent -LogName Security -MaxEvents 300 |
+Where-Object {
+    $_.Id -eq 4624 -and $_.Message -match "Logon Type:\s+3" -and $_.Message -match "Source Network Address"
+} |
+ForEach-Object {
+    $Results += [PSCustomObject]@{
+        TimeCreated = $_.TimeCreated
+        Detection   = "Remote Logon (4624 Type 3)"
+        Details     = $_.Message -replace "`r|`n", ' '
+    }
+}
+
+# Scheduled Task Creation (4698)
+Write-Host "[*] Detecting scheduled tasks..."
 Get-WinEvent -LogName Security -MaxEvents 300 |
 Where-Object { $_.Id -eq 4698 -or $_.Message -match "FakePersistenceTask" } |
 ForEach-Object {
@@ -54,27 +56,26 @@ ForEach-Object {
     }
 }
 
-# --------------------------
-# 4. Detect Registry Run Key Persistence
-# --------------------------
-Write-Host "[*] Checking registry for Run key backdoors..."
+# Registry Run Key Persistence
+Write-Host "[*] Checking for Run key persistence..."
 $RunPath = "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run"
-$RunKeys = Get-ItemProperty -Path $RunPath
-
-foreach ($entry in $RunKeys.PSObject.Properties) {
-    if ($entry.Value -match "cmd.exe|regstart") {
-        $Results += [PSCustomObject]@{
-            TimeCreated = $Now
-            Detection   = "Registry Run Key Persistence"
-            Details     = "$($entry.Name) = $($entry.Value)"
+try {
+    $RunKeys = Get-ItemProperty -Path $RunPath
+    foreach ($entry in $RunKeys.PSObject.Properties) {
+        if ($entry.Value -match "cmd.exe|regstart") {
+            $Results += [PSCustomObject]@{
+                TimeCreated = $Now
+                Detection   = "Registry Run Key Persistence"
+                Details     = "$($entry.Name) = $($entry.Value)"
+            }
         }
     }
+} catch {
+    Write-Host "[!] Error reading registry Run key: $_"
 }
 
-# --------------------------
-# 5. Detect Service Creation (7045)
-# --------------------------
-Write-Host "[*] Checking for fake service creation..."
+# Service Creation via sc.exe (7045)
+Write-Host "[*] Detecting suspicious services..."
 Get-WinEvent -LogName System -MaxEvents 200 |
 Where-Object { $_.Id -eq 7045 -and $_.Message -match "FakeService|cmd.exe" } |
 ForEach-Object {
@@ -85,37 +86,32 @@ ForEach-Object {
     }
 }
 
-# --------------------------
-# 6. Detect LOLBin Execution (4688)
-# --------------------------
-Write-Host "[*] Scanning for LOLBin executions..."
+# LOLBin Execution (4688)
+Write-Host "[*] Scanning for LOLBin process creation..."
 $lolbins = @("ntdsutil.exe", "esentutl.exe", "reg.exe", "sc.exe")
-
 $lolbinEvents = Get-WinEvent -LogName Security -FilterXPath "*[System/EventID=4688]" -MaxEvents 500
 
 foreach ($event in $lolbinEvents) {
     if ($event.Message) {
-        $message = $event.Message.ToLower()
+        $msg = $event.Message.ToLower()
         foreach ($bin in $lolbins) {
-            if ($message -like "*$bin*") {
+            if ($msg -like "*$bin*") {
                 $Results += [PSCustomObject]@{
                     TimeCreated = $event.TimeCreated
-                    Detection   = "LOLBin Execution Detected (4688)"
+                    Detection   = "LOLBin Execution (4688)"
                     Details     = $event.Message -replace "`r|`n", ' '
                 }
-                break  # Stop checking once one LOLBin match is found
+                break
             }
         }
     }
 }
 
-# --------------------------
-# 7. Output Results
-# --------------------------
+# Output Results
 if ($Results.Count -gt 0) {
     $Results | Format-Table -AutoSize
-    $Results | Export-Csv -Path $ReportPath -NoTypeInformation
-    Write-Host "`n[+] Detection complete. Report saved to: $ReportPath"
+    $Results | Export-Csv -Path $ReportPath -NoTypeInformation -Encoding UTF8
+    Write-Host "`n[+] Detection complete. Output written to: $ReportPath"
 } else {
-    Write-Host "`n[+] No matching threat activity detected."
+    Write-Host "`n[+] No matching indicators found in this run."
 }
