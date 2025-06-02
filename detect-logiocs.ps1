@@ -18,7 +18,6 @@ $startTime = (Get-Date).AddDays(-24)
 $results = @()
 
 # IOC 1: Failed Logins (Event ID 4625)
-# Lesson: Multiple failed logins may indicate a brute-force attack (MITRE ATT&CK: T1110).
 # We look in the Security log for event ID 4625.
 try {
     $events = Get-WinEvent -FilterHashtable @{
@@ -40,7 +39,6 @@ try {
 }
 
 # IOC 2: Suspicious PowerShell Process (Event ID 4688)
-# Lesson: PowerShell is often used by attackers to run malicious scripts (MITRE ATT&CK: T1059).
 # We look in the Security log for event ID 4688 (process creation) with PowerShell.
 try {
     $events = Get-WinEvent -FilterHashtable @{
@@ -60,9 +58,8 @@ try {
     Write-Warning "Error checking PowerShell processes: $_"
 }
 
-# IOC 3: New Service Creation (Event ID 7045)
-# Lesson: Attackers create services to persist on a system (MITRE ATT&CK: T1543).
-# We look in the System log for event ID 7045 (new service).
+# IOC 3: New Service Creation (Event ID 7045)1
+# Lesson: Attackers create services to persist on a system (MITRE ATT&CK: T1543).# We look in the System log for event ID 7045 (new service).
 try {
     $events = Get-WinEvent -FilterHashtable @{
         LogName = "System"
@@ -84,7 +81,7 @@ try {
 # Display results
 # Lesson: Review and interpret results to decide if further investigation is needed.
 if ($results.Count -eq 0) {
-    Write-Output "No suspicious activity detected in the last 24 hours."
+    Write-Output "No suspicious activity detected in the last 30 days."
 } else {
     Write-Output "`nSuspicious Activity Detected:"
     Write-Output "-----------------------------"

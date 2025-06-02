@@ -16,31 +16,31 @@ $sqlPattern = "SELECT|UNION|INSERT|DELETE|DROP|UPDATE"  # Matches SQL injection 
 $commandPattern = "powershell|cmd\.exe|rundll32|regsvr32|iex|downloadstring"  # Matches malicious commands
 
 # Search for IOCs in files
-Write-Output "Scanning files in $targetDir for IOCs..."
+Write-Host "Scanning files in $targetDir for IOCs..." -ForegroundColor DarkYellow
 $files = Get-ChildItem -Path $targetDir -Filter "SuspiciousLog_*.txt" -Recurse
 
 foreach ($file in $files) {
-    Write-Output "`nAnalyzing file: $($file.FullName)"
+    Write-Host "`nAnalyzing file: $($file.FullName)" -ForegroundColor Cyan
 
     # Check for suspicious IPs
     $ipMatches = Select-String -Path $file.FullName -Pattern $ipPattern -AllMatches
     if ($ipMatches) {
-        Write-Output "Suspicious IPs found:"
-        $ipMatches | ForEach-Object { Write-Output " - $($_.Matches.Value)" }
+        Write-host "Suspicious IPs found:" -ForegroundColor Red
+        $ipMatches | ForEach-Object { Write-host " - $($_.Matches.Value)" -ForegroundColor Yellow }
     }
 
     # Check for SQL injection attempts
     $sqlMatches = Select-String -Path $file.FullName -Pattern $sqlPattern -AllMatches
     if ($sqlMatches) {
-        Write-Output "Potential SQL injection attempts found:"
-        $sqlMatches | ForEach-Object { Write-Output " - $($_.Line)" }
+        Write-host "Potential SQL injection attempts found:" -ForegroundColor Red
+        $sqlMatches | ForEach-Object { Write-Host " - $($_.Line)" -ForegroundColor Yellow }
     }
 
     # Check for malicious commands
     $commandMatches = Select-String -Path $file.FullName -Pattern $commandPattern -AllMatches
     if ($commandMatches) {
-        Write-Output "Malicious commands found:"
-        $commandMatches | ForEach-Object { Write-Output " - $($_.Line)" }
+        Write-host "Malicious commands found:" -ForegroundColor Red
+        $commandMatches | ForEach-Object { Write-Host " - $($_.Line)" -ForegroundColor Yellow }
     }
 
     if (-not $ipMatches -and -not $sqlMatches -and -not $commandMatches) {
