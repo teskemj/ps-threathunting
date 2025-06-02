@@ -90,9 +90,11 @@ ForEach-Object {
 # --------------------------
 Write-Host "[*] Scanning for LOLBin executions..."
 $lolbins = @("ntdsutil.exe", "esentutl.exe", "reg.exe", "sc.exe")
+
 Get-WinEvent -LogName Security -FilterXPath "*[System/EventID=4688]" -MaxEvents 500 |
 Where-Object {
-    $_.Message -and ($lolbins | Where-Object { $_.ToLower() -in $_.Message.ToLower() })
+    $_.Message -and ($lolbins | ForEach-Object { $_.ToLower() }) -contains ($_ | ForEach-Object { $_.Message.ToLower() }) -eq $false -and
+    ($lolbins | Where-Object { $_.ToLower() -in ($_.Message.ToLower()) })
 } |
 ForEach-Object {
     $Results += [PSCustomObject]@{
@@ -101,6 +103,7 @@ ForEach-Object {
         Details     = $_.Message -replace "`r|`n", ' '
     }
 }
+
 
 # --------------------------
 # 7. Output Results
