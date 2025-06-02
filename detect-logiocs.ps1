@@ -1,5 +1,4 @@
 # Detect-SimpleIOCs.ps1
-# A simple script to teach junior analysts threat hunting by detecting common IOCs in Windows event logs.
 # Threat hunting tactic: Analyze event logs to find signs of malicious activity.
 
 # Safety check: Ensure script runs in a lab environment
@@ -10,9 +9,9 @@ if ($computerName -notlike "*DC*") {
     exit
 }
 
-# Set time range to last 24 hours
+# Set time range to last 30 days
 # Lesson: Limiting the time range reduces noise and focuses on recent activity.
-$startTime = (Get-Date).AddDays(-24)
+$startTime = (Get-Date).AddDays(-30)
 
 # Initialize results array to store detected IOCs
 $results = @()
