@@ -91,19 +91,23 @@ ForEach-Object {
 Write-Host "[*] Scanning for LOLBin executions..."
 $lolbins = @("ntdsutil.exe", "esentutl.exe", "reg.exe", "sc.exe")
 
-Get-WinEvent -LogName Security -FilterXPath "*[System/EventID=4688]" -MaxEvents 500 |
-Where-Object {
-    $_.Message -ne $null -and ($lolbins | Where-Object { $msg = $_.Message.ToLower(); $msg -like "*$_*" })
-} |
-ForEach-Object {
-    $Results += [PSCustomObject]@{
-        TimeCreated = $_.TimeCreated
-        Detection   = "LOLBin Execution (4688)"
-        Details     = $_.Message -replace "`r|`n", ' '
+$lolbinEvents = Get-WinEvent -LogName Security -FilterXPath "*[System/EventID=4688]" -MaxEvents 500
+
+foreach ($event in $lolbinEvents) {
+    if ($event.Message) {
+        $message = $event.Message.ToLower()
+        foreach ($bin in $lolbins) {
+            if ($message -like "*$bin*") {
+                $Results += [PSCustomObject]@{
+                    TimeCreated = $event.TimeCreated
+                    Detection   = "LOLBin Execution Detected (4688)"
+                    Details     = $event.Message -replace "`r|`n", ' '
+                }
+                break  # Stop checking once one LOLBin match is found
+            }
+        }
     }
 }
-
-
 
 # --------------------------
 # 7. Output Results
