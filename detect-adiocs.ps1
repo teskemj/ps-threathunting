@@ -6,7 +6,7 @@
 #>
 
 # Set up report path
-$ReportPath = "C:\LabSimulation\Detection_Report.csv"
+$ReportPath = "C:\LabFiles\Detection_Report.csv"
 $Results = @()
 $Now = Get-Date
 

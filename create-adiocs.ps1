@@ -7,7 +7,7 @@
 #>
 
 # Set up test directory
-$StagingPath = "C:\LabSimulation\ThreatIOC"
+$StagingPath = "C:\LabFiles\ThreatIOC"
 New-Item -Path $StagingPath -ItemType Directory -Force | Out-Null
 Write-Host "`n[+] Staging path created at $StagingPath"
 
