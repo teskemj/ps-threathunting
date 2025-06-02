@@ -93,8 +93,7 @@ $lolbins = @("ntdsutil.exe", "esentutl.exe", "reg.exe", "sc.exe")
 
 Get-WinEvent -LogName Security -FilterXPath "*[System/EventID=4688]" -MaxEvents 500 |
 Where-Object {
-    $_.Message -and ($lolbins | ForEach-Object { $_.ToLower() }) -contains ($_ | ForEach-Object { $_.Message.ToLower() }) -eq $false -and
-    ($lolbins | Where-Object { $_.ToLower() -in ($_.Message.ToLower()) })
+    $_.Message -ne $null -and ($lolbins | Where-Object { $msg = $_.Message.ToLower(); $msg -like "*$_*" })
 } |
 ForEach-Object {
     $Results += [PSCustomObject]@{
@@ -103,6 +102,7 @@ ForEach-Object {
         Details     = $_.Message -replace "`r|`n", ' '
     }
 }
+
 
 
 # --------------------------
