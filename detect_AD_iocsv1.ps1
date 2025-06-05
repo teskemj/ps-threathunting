@@ -11,7 +11,7 @@ $Results = @()
 $Now = Get-Date
 
 # Set the number of days to look back for events
-$Days = -10
+$Days = -5
 
 Write-Host "`n[+] Starting IOC detection..."
 
