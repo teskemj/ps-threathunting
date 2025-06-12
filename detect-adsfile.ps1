@@ -1,3 +1,8 @@
+# Detect-adsfile.ps1
+# Detect files with alternate data streams (ADS)
+
+
+# Assign the ADS name to a variable
 $file = "C:\labfiles\DummyFile0.txt"   #Replace with the path to the file you want to check
 
 $streamList = Get-Item $file -Stream * | Select-Object Stream

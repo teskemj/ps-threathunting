@@ -1,3 +1,6 @@
+# Detect-cloudiocs.ps1
+# Detct cloud-based IOCs using Microsoft Graph API
+
 # Connect Microsoft Graph to RoleManagement scope
 Connect-MgGraph -Scopes "RoleManagement.Read.Directory"
 
@@ -13,7 +16,7 @@ Get-MgDirectoryRoleMember -DirectoryRoleId $role.Id | ForEach-Object {
 # Connect to Microsoft Graph with the auditlog scope
 Connect-MgGraph -Scopes AuditLog.Read.All
 
-Get-MgAuditLogSignIn -Top 10 | Where-Object { $_.ConditionalAccessStatus -eq "notApplied" -or $_.AuthenticationRequirement -eq "singleFactorAuthentication" } |Select-Object UserDisplayName, IPAddress, AppDisplayName, ConditionalAccessStatus, AuthenticationRequirement, RiskDetail
+Get-MgAuditLogSignIn -Top 50 | Where-Object { $_.ConditionalAccessStatus -eq "notApplied" -or $_.AuthenticationRequirement -eq "singleFactorAuthentication" } |Select-Object UserDisplayName, IPAddress, AppDisplayName, ConditionalAccessStatus, AuthenticationRequirement, RiskDetail
 
 
 # Connect to Microsoft Graph with the Directory scope

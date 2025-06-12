@@ -1,13 +1,7 @@
 # Create-EventLogIOCs.ps1
 # Generates IOCs in event logs on a lab test domain controller for threat hunting practice
 
-<# Safety check: Ensure script runs on a lab domain controller
-$computerName = $env:COMPUTERNAME
-if ($computerName -notlike "*LAB*") {
-    Write-Warning "This script should only run on a lab domain controller (e.g., computer name with 'LAB'). Exiting."
-    exit
-}
-#>
+
 # Import Active Directory module
 Import-Module ActiveDirectory -ErrorAction SilentlyContinue
 if (-not (Get-Module -Name ActiveDirectory)) {
@@ -90,8 +84,5 @@ try {
     Write-Output "File access attempt logged"
 }
 
-# Cleanup: Remove dummy user (optional, comment out if you want to keep the user)
-# Remove-ADUser -Identity $dummyUser -Confirm:$false
 # Write-Output "Removed dummy user: $dummyUser"
-
 Write-Output "`nIOCs have been generated. Check the event logs for simulated malicious activity."

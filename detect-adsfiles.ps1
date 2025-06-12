@@ -1,3 +1,6 @@
+# Detect-adsfiles.ps1
+# This script detects files with alternate data streams (ADS) in a specified folder and its subfolders.
+
 #Replace with the path to the folder you want to search
 $folderPath = "C:\labfiles" 
 

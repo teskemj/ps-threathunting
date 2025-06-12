@@ -1,14 +1,6 @@
 # Detect-SimpleIOCs.ps1
 # Threat hunting tactic: Analyze event logs to find signs of malicious activity.
 
-# Safety check: Ensure script runs in a lab environment
-# Lesson: Always verify your environment to avoid running scripts in production!
-$computerName = $env:COMPUTERNAME
-if ($computerName -notlike "*DC*") {
-    Write-Warning "This script should only run in a lab environment (computer name with 'LAB'). Exiting."
-    exit
-}
-
 # Set time range to last 30 days
 # Lesson: Limiting the time range reduces noise and focuses on recent activity.
 $startTime = (Get-Date).AddDays(-30)
@@ -17,7 +9,6 @@ $startTime = (Get-Date).AddDays(-30)
 $results = @()
 
 # IOC 1: Failed Logins (Event ID 4625)
-# We look in the Security log for event ID 4625.
 try {
     $events = Get-WinEvent -FilterHashtable @{
         LogName = "Security"
@@ -38,7 +29,6 @@ try {
 }
 
 # IOC 2: Suspicious PowerShell Process (Event ID 4688)
-# We look in the Security log for event ID 4688 (process creation) with PowerShell.
 try {
     $events = Get-WinEvent -FilterHashtable @{
         LogName = "Security"
@@ -58,7 +48,6 @@ try {
 }
 
 # IOC 3: New Service Creation (Event ID 7045)1
-# Lesson: Attackers create services to persist on a system (MITRE ATT&CK: T1543).# We look in the System log for event ID 7045 (new service).
 try {
     $events = Get-WinEvent -FilterHashtable @{
         LogName = "System"
@@ -78,7 +67,6 @@ try {
 }
 
 # Display results
-# Lesson: Review and interpret results to decide if further investigation is needed.
 if ($results.Count -eq 0) {
     Write-Output "No suspicious activity detected in the last 30 days."
 } else {
